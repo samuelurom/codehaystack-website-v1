@@ -1,5 +1,4 @@
 from ..extensions import db
-from datetime import datetime
 
 
 class Post(db.Model):
@@ -8,15 +7,14 @@ class Post(db.Model):
     title = db.Column(db.String(250), index=True, nullable=False)
     url = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.Text, index=True, nullable=False)
-    content = db.Column(db.Text, index=True)
+    content = db.Column(db.Text, index=True, nullable=False)
     featured_image_path = db.Column(db.String(250))
     status = db.Column(db.String(20), index=True,
-                       default='draft', nullable=False)
-    comment_status = db.Column(db.String(20), default='open', nullable=False)
-    published = db.Column(db.DateTime, index=True,
-                          default=datetime.now(), nullable=False)
-    modifiled = db.Column(db.DateTime, index=True,
-                          default=datetime.now(), nullable=False)
+                       server_default='draft', nullable=False)
+    created_at = db.Column(db.DateTime, index=True,
+                           server_default=db.func.now(), nullable=False)
+    modifiled_at = db.Column(db.DateTime, index=True,
+                             server_default=db.func.now(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
