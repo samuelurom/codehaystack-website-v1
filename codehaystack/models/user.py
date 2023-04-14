@@ -9,6 +9,8 @@ class User(db.Model):
     full_name = db.Column(db.String(80))
     email = db.Column(db.String(250), unique=True, nullable=False)
     bio = db.Column(db.Text)
+    password = db.Column(db.String(250), nullable=False)
+
     posts = db.relationship('Post', backref='user', lazy=True)
 
     def __repr__(self):

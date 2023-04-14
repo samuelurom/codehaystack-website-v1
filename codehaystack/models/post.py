@@ -15,6 +15,7 @@ class Post(db.Model):
                            server_default=db.func.now(), nullable=False)
     modifiled_at = db.Column(db.DateTime, index=True,
                              server_default=db.func.now(), nullable=False)
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
