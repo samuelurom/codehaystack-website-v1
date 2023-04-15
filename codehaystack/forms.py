@@ -2,22 +2,23 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileSize, FileAllowed
 from wtforms import (StringField, TextAreaField, EmailField,
                      PasswordField, SelectField, SubmitField)
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
-class SignUp(FlaskForm):
+class SignUpForm(FlaskForm):
     """Registration form class"""
     username = StringField("Username", validators=[DataRequired()])
     full_name = StringField("Full Name")
     email = EmailField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired(), Length(
+        min=8, message="Password should be more than 8 characters")])
     confirm_password = PasswordField("Confirm Password", validators=[
         DataRequired(), EqualTo('password', "Passwords do not match")
     ])
     submit = SubmitField("Create New Account")
 
 
-class UserProfile(FlaskForm):
+class UserProfileForm(FlaskForm):
     """User Profile Form class"""
     username = StringField("Username", validators=[DataRequired()])
     full_name = StringField("Full Name")
@@ -26,7 +27,7 @@ class UserProfile(FlaskForm):
     update = SubmitField("Update Profile")
 
 
-class ChangePassword(FlaskForm):
+class ChangePasswordForm(FlaskForm):
     """Change User Password"""
     old_password = PasswordField("Old Password", validators=[DataRequired()])
     new_password = PasswordField("New Password", validators=[DataRequired()])
@@ -35,7 +36,7 @@ class ChangePassword(FlaskForm):
     submit = SubmitField("Submit")
 
 
-class PostArticle(FlaskForm):
+class PostArticleForm(FlaskForm):
     """Create or Edit Post form class"""
     title = StringField("Title", validators=[DataRequired()])
     url = StringField("URL")
@@ -46,5 +47,5 @@ class PostArticle(FlaskForm):
         FileAllowed(["jpg", "png", "webp"], "Image files only!")
     ])
     status = SelectField("Post Status", choices=[
-                         "", "Draft", "Publish"], validators=[DataRequired()])
+        "Draft", "Publish"], validators=[DataRequired()])
     submit = SubmitField("Submit Post")

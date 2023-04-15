@@ -1,23 +1,37 @@
 <form action="" method="POST">
     {{ form.hidden_tag() }}
 
-    {{ form.title.label }}
-    {{ form.title }}
+    <p>
+        {{ form.title.label }}
+        {{ form.title }}
+    </p>
 
-    {{ form.url.label }}
-    {{ form.url }}
+    <p>
+        {{ form.url.label }}
+        {{ form.url }}
+    </p>
 
-    {{ form.description.label }}
-    {{ form.description }}
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
 
-    {{ form.content.label }}
-    {{ form.content }}
+    <p>
+        {{ form.content.label }}
+        {{ form.content }}
+    </p>
 
-    {{ form.featured_image.label }}
-    {{ form.featured_image }}
+    <p>
+        {{ form.featured_image.label }}
+        {{ form.featured_image }}
+    </p>
 
-    {{ form.status.label }}
-    {{ form.status }}
+    <p>
+        {{ form.status.label }}
+        {{ form.status }}
+    </p>
 
-    {{ form.submit }}
+    <p>
+        {{ form.submit }}
+    </p>
 </form>

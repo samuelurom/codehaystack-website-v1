@@ -1,21 +1,37 @@
+{% for message in get_flashed_messages() %}
+    {{ message }}
+{% endfor %}
 
 <form action="" method="POST">
     {{ form.hidden_tag() }}
 
-    {{ form.email.label }}
-    {{ form.email }}
+    <p>
+        {{ form.email.label }}
+        {{ form.email }}
+    </p>
 
-    {{ form.username.label }}
-    {{ form.username }}
+    <p>
+        {{ form.username.label }}
+        {{ form.username }}
+    </p>
 
-    {{ form.full_name.label }}
-    {{ form.full_name }}
+    <p>
+        {{ form.full_name.label }}
+        {{ form.full_name }}
+    </p>
 
-    {{ form.password.label }}
-    {{ form.password }}
+    <p>
+        {{ form.password.label }}
+        {{ form.password }}
+    </p>
 
-    {{ form.confirm_password.label }}
-    {{ form.confirm_password }}
+    <p>
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password }}
+    </p>
 
-    {{ form.submit }}
+    <p>
+        {{ form.submit }}
+    </p>
+
 </form>
