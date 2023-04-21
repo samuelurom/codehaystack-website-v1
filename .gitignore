@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -133,3 +132,6 @@ node_modules
 npm-debug.log
 .nyc
 .DS_Store
+
+# TailwindCSS
+input.css
