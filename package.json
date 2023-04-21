@@ -1,0 +1,23 @@
+{
+  "name": "codehaystack",
+  "version": "1.0.0",
+  "description": "Website for codehaystack.com version 1",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./codehaystack/static/css/src/input.css -o ./codehaystack/static/css/dist/output.css",
+    "watch": "npx tailwindcss -i ./codehaystack/static/css/src/input.css -o ./codehaystack/static/css/dist/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelurom/codehaystack-website-v1.git"
+  },
+  "author": "Samuel Urom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samuelurom/codehaystack-website-v1/issues"
+  },
+  "homepage": "https://github.com/samuelurom/codehaystack-website-v1#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  }
+}
