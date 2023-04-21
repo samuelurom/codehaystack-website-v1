@@ -23,10 +23,11 @@ def signup():
         # check for existing username and email
         # create new user if validation is passed
         if User.query.filter_by(email=email).first():
-            flash("Email already in use!")
+            flash("Email already in use!", "dager")
 
+        # check if username exists
         elif User.query.filter_by(username=username).first():
-            flash("Username already in use!")
+            flash("Username already in use!", "danger")
 
         else:
             # create new user object

@@ -22,7 +22,7 @@ def create_app():
     # import and register blueprints
     from .routes.main import main
     from .routes.account import account
-    from .routes.create_post import create_post
+    from .routes.manage_post import create_post
 
     app.register_blueprint(main)
     app.register_blueprint(account)

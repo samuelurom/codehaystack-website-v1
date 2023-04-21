@@ -39,7 +39,7 @@ class ChangePasswordForm(FlaskForm):
 class PostArticleForm(FlaskForm):
     """Create or Edit Post form class"""
     title = StringField("Title", validators=[DataRequired()])
-    url = StringField("URL")
+    slug = StringField("URL")
     description = TextAreaField("Meta Description")
     content = TextAreaField("Content", validators=[DataRequired()])
     featured_image = FileField("Featured Image", validators=[
@@ -49,3 +49,13 @@ class PostArticleForm(FlaskForm):
     status = SelectField("Post Status", choices=[
         "Draft", "Publish"], validators=[DataRequired()])
     submit = SubmitField("Submit Post")
+
+
+class TermsForm(FlaskForm):
+    """Create or Edit Terms and Taxonomy"""
+    name = StringField("Name", validators=[DataRequired()])
+    description = TextAreaField("Description")
+    slug = StringField("Slug", validators=[DataRequired()])
+    taxonomy = SelectField("Taxonomy", choices=[
+                           "Category", "Tag"], validators=[DataRequired()])
+    submit = SubmitField("Add New Term")
