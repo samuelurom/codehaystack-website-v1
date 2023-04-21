@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<article class="container my-14 max-w-4xl mx-auto lg:pr-14">
+    <header>
+        <h1 class="text-4xl text-gray-700 font-bold mb-6">
+            {% block header %}{% endblock %}
+        </h1>
+    </header>
+    <article>
+        {% block article %}{% endblock %}
+    </article>
+
+</article>
+{% endblock %}

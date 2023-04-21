@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/output.css') }}"/>
+    <script src="https://kit.fontawesome.com/6dd2932751.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <meta property="og:title" content="{% block og_title %}{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}{% endblock %}" />
+    <meta property="og:image" content="{% block og_image %}{% endblock %}" />
+</head>
+
+<body>
+    <header class="bg-white border-b border-b-gray-200">
+        <!-- Navbar -->
+        <nav class="relative container mx-auto py-6 px-4">
+            <!-- Flex container -->
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="pt-2">
+                    <a href="{{ url_for('main.index') }}">
+                        <img class="w-52" src="{{ url_for('static', filename='images/codehaystack-logo-dark.svg') }}" alt="CodeHaystack"/>
+                    </a>
+                </div>
+
+                <!-- Menu Items -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="font-semibold hover:text-sky-500">Python</a>
+                    <a href="#" class="font-semibold hover:text-sky-500">JavaScript</a>
+                    <a href="#" class="font-semibold hover:text-sky-500">C#</a>
+                    <a href="#" class="font-semibold hover:text-sky-500">Flask</a>
+                    <a href="#" class="font-semibold hover:text-sky-500">React</a>
+                    <a href="#" class="font-semibold hover:text-sky-500">Git</a>
+                </div>
+
+                <!-- Button -->
+                <a href="#" class="hidden md:block rounded-full px-4 py-2 font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200">Log in &rarr;</a>
+            </div>
+        </nav>
+    </header>
+
+    {% block header %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="border-t py-8 border-gray-200">
+        <div class="container pt-14 px-4 mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 pb-14 gap-8">
+                <div class="col-span-5">
+                    <a href="{{ url_for('main.index') }}">
+                        <img src="{{ url_for('static', filename='images/codehaystack-logo-dark.svg') }}" alt="CodeHaystack" class="w-52" />
+                    </a>
+                    <p class="mt-5 text-base text-gray-600">
+                        CodeHaystack is your curated guide on software development, cloud computing, scientific computing, data analysis, and machine learning. We believe that everyone has the potential to become a great developer with the right resources and guidance.
+                    </p>
+                    <ul class="flex mt-5 space-x-4">
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-sky-500"><i class="fab fa-twitter text-xl"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-sky-500"><i class="fab fa-youtube text-xl"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-sky-500"><i class="fab fa-tiktok text-xl"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-span-3">
+                    <h3 class="text-xl font-medium text-gray-600">Quick Links</h3>
+                    <ul class="mt-4 leading-8">
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-sky-500">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-sky-500">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-sky-500">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-sky-500">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-sky-500">Copyright Policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-span-4">
+                    <h3 class="text-xl font-medium text-gray-600">
+                        Subscribe to Our Newsletter
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-6 mt-3">The latest trends and resources sent to your inbox weekly.</p>
+                    <form class="flex border-2 border-sky-500 rounded-full mt-5 p-1">
+                        <input class="bg-transparent appearance-none w-full mr-2 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="Enter your email"/>
+                        <button class="bg-sky-500 hover:bg-teal-500 text-sm text-white font-semibold py-2 px-4 rounded-full" type="submit">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-200 pt-8">
+                <p class="text-base text-gray-400">
+                    &copy; 2023 CodeHaystack. All rights reserved. Created by <a href="https://samuelurom.com" target="_blank" class="text-gray-600 hover:text-sky-500">Samuel Urom</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

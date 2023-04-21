@@ -1,0 +1,86 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<div class="container px-4 mx-auto my-12 flex flex-col gap-14 md:flex-col lg:flex-row">
+    <article class="w-full lg:border-r lg:pr-14 lg:border-gray-200">
+        <nav aria-label="breadcrumbs" class="text-base text-sky-500 mb-2 hover:text-gray-600 ">
+            // <a href="#" class="hover:border-b-2 hover:border-gray-600">Tutorials</a>
+        </nav>
+        <header>
+            <h1 class="text-4xl text-gray-700 font-bold mb-6">
+                How to Setup a Basic Flask Application
+            </h1>
+            <div class="flex items-center gap-x-4 text-sm">
+                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Web Development</a>
+                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Python</a>
+                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Flask</a>
+            </div>
+
+            <!-- Meta info and Social Share -->
+            <div class="flex flex-col md:flex-row lg:flex-row">
+                <div class="my-6 flex items-center gap-x-4">
+                    <a href="#">
+                        <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="h-12 w-12 rounded-full bg-gray-50">
+                    </a>
+                    <div class="leading-6">
+                        <a href="#" class="font-semibold text-gray-900">Michael Foster</a>
+                        <div class="text-sm text-gray-500">Published on <time>20 April 2023</time> <span class="mx-2">&middot</span> 7 min read</div>
+                    </div>
+                </div>
+
+                <!-- Social Share Buttons -->
+                <div class="flex space-x-4 items-center md:ml-auto lg:ml-auto md:justify-end lg:justify-end mb-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <i class="far fa-envelope fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <img src="{{ url_for('static', filename='images/python-and-flask.jpg') }}" alt="" class="w-full object-cover rounded-lg mb-3">
+        </header>
+        <div class="my-8">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>
+                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            </p>
+            <p>
+                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+            </p>
+        </div>
+
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="w-full lg:min-w-sidebar lg:max-w-sidebar">
+
+        <!-- Author Profile on Medium and Large Screens -->
+        <div class="flex flex-col items-center gap-3 mb-12 py-6 px-6 bg-gray-100 rounded-lg">
+            <a href="#">
+                <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="h-24 w-24 rounded-full bg-gray-50">
+            </a>
+            <a href="#" class="font-semibold text-gray-900">Michael Foster</a>
+            <div class="text-sm text-center text-gray-500">Expert and Author in Applied Mathematics, Data Science, Statistics. Also writes History, Science, Culture. Find me on Twitter or keithmcnulty.org</div>
+        </div>
+
+        <!-- Search Form -->
+        <form class="flex items-center border-2 border-sky-500 rounded-full p-1">
+            <input class="bg-transparent appearance-none w-full py-1 pl-3 leading-tight focus:outline-none" type="text" placeholder="Search CodeHaystack"/>
+            <button class="flex-shrink-0 text-sky-500 hover:text-teal-500 text-xl font-semibold py-1 px-2 rounded-full" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+    </aside>
+</div>
+{% endblock %}
