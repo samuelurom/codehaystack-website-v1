@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 
@@ -5,27 +6,46 @@ def create_app():
     """Create and configure a new flask application"""
     app = Flask(__name__, instance_relative_config=True)
 
-    # create a new database instance
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"
+    # load config file in `config.py` file
+    # create `config.py` from `config_sample.py` template
+    from . import config
+    app.config.from_mapping(config.config)
 
-    # supress warnings
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # ensure the upload folder exists
+    try:
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+    except OSError:
+        pass
 
-    # CSRF Secrete Key
-    app.config["SECRET_KEY"] = "c8BXNC%ieGtj^XNa5Ow6UbuaZeAz%J3PBBY8oVUtNW625o#n2I"
-
-    # Initialize and bind db and migration to app
-    from .extensions import db, migrate
+    # initialize and bind `db`, `migration` and `login_manager` to app
+    from .extensions import db, migrate, login_manager
     db.init_app(app)
     migrate.init_app(app, db)
+    login_manager.init_app(app)
+
+    # default login view
+    login_manager.login_view = "profile.login"
+
+    # get user object with user's id
+    from .models.user import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.filter(User.id == user_id).first()
 
     # import and register blueprints
-    from .routes.main import main
-    from .routes.account import account
-    from .routes.manage_post import create_post
+    from .routes.main.main import main
+    from .routes.dashboard.profile import profile
+    from .routes.dashboard.post import post
+    from .routes.dashboard.term import term
+    from .routes.dashboard.main import dashboard
+    from .routes.download_file import download_file
 
     app.register_blueprint(main)
-    app.register_blueprint(account)
-    app.register_blueprint(create_post)
+    app.register_blueprint(profile)
+    app.register_blueprint(post)
+    app.register_blueprint(term)
+    app.register_blueprint(dashboard)
+    app.register_blueprint(download_file)
 
     return app
