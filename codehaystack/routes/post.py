@@ -1,24 +1,23 @@
 import os
-from flask import (Blueprint, current_app, render_template,
-                   redirect, url_for, flash)
+from flask import Blueprint, current_app, render_template, redirect, url_for, flash
 from slugify import slugify
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
 
-from ...models.post import Post
-from ...models.term import Term, terms
-from ...forms import PostArticleForm
-from ...extensions import db
-from ...functions import allowed_image, unique_filename
+from ..models.post import Post
+from ..models.term import Term, terms
+from ..forms import PostArticleForm
+from ..extensions import db
+from ..functions import allowed_image, unique_filename
 
 post = Blueprint("post", __name__, url_prefix="/dashboard")
 
 # set `post_type`
-post_type = 'post'
+post_type = "post"
 
 
 @post.route("/create-post", methods=["GET", "POST"])
-@login_required
+# @login_required
 def create_post():
     # new instance of post form
     post_form = PostArticleForm()
@@ -34,7 +33,6 @@ def create_post():
 
     # form validation and processing
     if post_form.validate_on_submit():
-
         # get data from form fields
         title = post_form.title.data
         slug = slugify(post_form.slug.data)
@@ -69,7 +67,8 @@ def create_post():
 
             # set featured_image filepath
             filepath = os.path.join(
-                current_app.config["UPLOAD_FOLDER"], unique_featured_filename)
+                current_app.config["UPLOAD_FOLDER"], unique_featured_filename
+            )
 
             # upload and save the image with defined `filepath`
             featured_image.save(filepath)
@@ -85,7 +84,7 @@ def create_post():
                 status=post_form.status.data,
                 post_type=post_type,
                 user_id=current_user.id,
-                terms=categories + tags
+                terms=categories + tags,
             )
 
             # add the Post instance to database
@@ -94,7 +93,7 @@ def create_post():
 
             flash("Post saved!", "success")
 
-            return redirect(url_for('post.create_post'))
+            return redirect(url_for("post.create_post"))
     else:
         # validation not passed
         for field, errors in post_form.errors.items():

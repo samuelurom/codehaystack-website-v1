@@ -1,12 +1,11 @@
-from flask import (Blueprint, render_template,
-                   request, redirect, url_for, flash)
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user
 from werkzeug.urls import url_parse
 
-from ...forms import SignUpForm, LogInForm
-from ...models.post import Post
-from ...models.user import User
-from ...extensions import db
+from ..forms import SignUpForm, LogInForm
+from ..models.post import Post
+from ..models.user import User
+from ..extensions import db
 
 profile = Blueprint("profile", __name__, url_prefix="/dashboard")
 
@@ -36,9 +35,7 @@ def signup():
         else:
             # create new user object
             new_user = User(
-                email=email,
-                username=username,
-                full_name=signup_form.full_name.data
+                email=email, username=username, full_name=signup_form.full_name.data
             )
 
             # set user password hash
@@ -60,7 +57,7 @@ def signup():
     return render_template("/dashboard/signup.html", form=signup_form)
 
 
-@profile.route('/login', methods=["GET", "POST"])
+@profile.route("/login", methods=["GET", "POST"])
 def login():
     """View for user login"""
 
@@ -68,7 +65,6 @@ def login():
     form = LogInForm()
 
     if form.validate_on_submit():
-
         # get user from database
         user = User.query.filter_by(username=form.username.data).first_or_404()
 
@@ -79,10 +75,10 @@ def login():
 
             flash("Logged in successfully!", "success")
 
-            next_url = request.args.get('next')
+            next_url = request.args.get("next")
 
-            if not next_url or url_parse(next_url).netloc != '':
-                next_url = url_for('main.index')
+            if not next_url or url_parse(next_url).netloc != "":
+                next_url = url_for("main.index")
 
             return redirect(next_url)
 
@@ -95,12 +91,12 @@ def login():
             for error in errors:
                 flash(f"{field.title().replace('_', ' ')}: {error}", "danger")
 
-    return render_template('dashboard/login.html', form=form)
+    return render_template("dashboard/login.html", form=form)
 
 
-@profile.route('/logout')
+@profile.route("/logout")
 def logout():
     logout_user()
 
     flash("Logged out successfully!", "success")
-    return redirect(url_for('profile.login'))
+    return redirect(url_for("profile.login"))

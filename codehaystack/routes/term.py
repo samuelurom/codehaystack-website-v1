@@ -1,17 +1,17 @@
-from flask import (Blueprint, render_template, redirect, url_for, flash)
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
 from slugify import slugify
 
-from ...forms import TermForm
-from ...models.post import terms, Post, Term
-from ...extensions import db
+from ..forms import TermForm
+from ..models.post import terms, Post, Term
+from ..extensions import db
 
 # create `Blueprint`
-term = Blueprint("term", __name__, url_prefix='/dashboard')
+term = Blueprint("term", __name__, url_prefix="/dashboard")
 
 
 @term.route("/create-term", methods=["GET", "POST"])
-@login_required
+# @login_required
 def create_term():
     # new instance of `TermForm`
     term_form = TermForm()
@@ -36,7 +36,7 @@ def create_term():
                 name=name,
                 slug=slug,
                 taxonomy=term_form.taxonomy.data,
-                description=term_form.description.data
+                description=term_form.description.data,
             )
 
             # add the `Term` instance to database
