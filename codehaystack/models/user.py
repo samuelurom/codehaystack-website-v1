@@ -1,9 +1,10 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 from ..extensions import db
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Users Model"""
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     username = db.Column(db.String(50), index=True,
@@ -12,12 +13,13 @@ class User(db.Model):
     email = db.Column(db.String(250), unique=True, nullable=False)
     bio = db.Column(db.Text)
     password_hash = db.Column(db.String(250), nullable=False)
+    profile_image_path = db.Column(db.String(250))
 
     posts = db.relationship('Post', backref='user', lazy=True)
 
     def __repr__(self):
         """String representation of User object"""
-        return f"User: {self.username}<{self.email}>"
+        return self.full_name
 
     def set_password(self, password):
         """Hash password and set `password_hash` for `User` object"""
