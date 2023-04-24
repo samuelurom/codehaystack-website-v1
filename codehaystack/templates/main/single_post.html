@@ -3,17 +3,25 @@
 {% block content %}
 <div class="container px-4 mx-auto my-12 flex flex-col gap-14 md:flex-col lg:flex-row">
     <article class="w-full lg:border-r lg:pr-14 lg:border-gray-200">
-        <nav aria-label="breadcrumbs" class="text-base text-sky-500 mb-2 hover:text-gray-600 ">
-            // <a href="#" class="hover:border-b-2 hover:border-gray-600">Tutorials</a>
+        <nav aria-label="breadcrumbs" class="text-base text-sky-500 mb-2">
+                {% for term in post.terms %}
+                    {% if term.taxonomy == 'Category' %}
+                        // <a href="#" class="hover:border-b-2 hover:border-gray-600 hover:text-gray-600 ">
+                        {{ term.name }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
         </nav>
         <header>
             <h1 class="text-4xl text-gray-700 font-bold mb-6">
-                How to Setup a Basic Flask Application
+                {{ post.title }}
             </h1>
             <div class="flex items-center gap-x-4 text-sm">
-                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Web Development</a>
-                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Python</a>
-                <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">Flask</a>
+                {% for term in post.terms %}
+                    {% if term.taxonomy == 'Tag' %}
+                        <a href="#" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">{{ term.name }}</a>
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <!-- Meta info and Social Share -->
@@ -23,8 +31,8 @@
                         <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="h-12 w-12 rounded-full bg-gray-50">
                     </a>
                     <div class="leading-6">
-                        <a href="#" class="font-semibold text-gray-900">Michael Foster</a>
-                        <div class="text-sm text-gray-500">Published on <time>20 April 2023</time> <span class="mx-2">&middot</span> 7 min read</div>
+                        <a href="#" class="font-semibold text-gray-900">{{ post.user }}</a>
+                        <div class="text-sm text-gray-500">Published on <time>{{ post.created_at.strftime('%d %B %Y') }}</time> <span class="mx-2">&middot</span> 7 min read</div>
                     </div>
                 </div>
 
@@ -45,18 +53,10 @@
                 </div>
             </div>
             
-            <img src="{{ url_for('static', filename='images/python-and-flask.jpg') }}" alt="" class="w-full object-cover rounded-lg mb-3">
+            <img src="/uploads/{{ post.featured_image_path }}" alt="" class="w-full object-cover rounded-lg mb-3">
         </header>
         <div class="my-8">
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-            <p>
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-            </p>
-            <p>
-                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            </p>
+            {{ post.content }}
         </div>
 
     </article>

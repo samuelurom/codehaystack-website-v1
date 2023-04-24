@@ -1,0 +1,29 @@
+<h1>Log In</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.username.label }}
+        {{ form.username }}
+    </p>
+
+    <p>
+        {{ form.password.label }}
+        {{ form.password }}
+    </p>
+
+    <p>
+        {{ form.remember }}
+        {{ form.remember.label }}
+    </p>
+
+    <p>
+        {{ form.next() }}
+        {{ form.login }}
+    </p>
+</form>

@@ -1,4 +1,10 @@
-<form action="" method="POST">
+<h1>Create Post</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
 
     <p>
@@ -7,13 +13,23 @@
     </p>
 
     <p>
-        {{ form.url.label }}
-        {{ form.url }}
+        {{ form.slug.label }}
+        {{ form.slug }}
     </p>
 
     <p>
         {{ form.description.label }}
         {{ form.description }}
+    </p>
+
+    <p>
+        {{ form.categories.label }}
+        {{ form.categories }}
+    </p>
+
+    <p>
+        {{ form.tags.label }}
+        {{ form.tags }}
     </p>
 
     <p>

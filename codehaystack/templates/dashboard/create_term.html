@@ -1,0 +1,28 @@
+<h1>Create New Term</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.slug.label }}
+        {{ form.slug }}
+    </p>
+    <p>
+        {{ form.taxonomy.label }}
+        {{ form.taxonomy }}
+    </p>
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.submit }}
+    </p>
+</form>
