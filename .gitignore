@@ -135,3 +135,6 @@ npm-debug.log
 
 # TailwindCSS
 input.css
+
+# Others
+config.py
