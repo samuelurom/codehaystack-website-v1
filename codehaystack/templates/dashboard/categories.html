@@ -1,0 +1,47 @@
+{% extends 'dashboard/layout.html' %}
+
+{% block content %}
+<h1>Create New Category</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.slug.label }}
+        {{ form.slug }}
+    </p>
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.submit(value="Add New Category") }}
+    </p>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.slug }}</td>
+            <td>{{ category.description }}</td>
+            <td><a href="">View</a> | <a href="{{ url_for('category.edit_category', id=category.id) }}">Edit</a> | <a href="{{ url_for('category.delete_category', id=category.id )}}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

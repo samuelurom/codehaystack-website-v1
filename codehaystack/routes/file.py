@@ -1,6 +1,6 @@
 from flask import Blueprint, current_app, send_from_directory
 
-file = Blueprint("download_file", __name__)
+file = Blueprint("file", __name__)
 
 
 @file.route("/uploads/<filename>")

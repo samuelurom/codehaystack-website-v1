@@ -1,0 +1,47 @@
+{% extends 'dashboard/layout.html' %}
+
+{% block content %}
+<h1>Create New Tag</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.slug.label }}
+        {{ form.slug }}
+    </p>
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.submit(value="Add New Tag") }}
+    </p>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    {% for tag in tags %}
+        <tr>
+            <td>{{ tag.name }}</td>
+            <td>{{ tag.slug }}</td>
+            <td>{{ tag.description }}</td>
+            <td><a href="">View</a> | <a href="{{ url_for('tag.edit_tag', id=tag.id)}}">Edit</a> | <a href="{{ url_for('tag.delete_tag', id=tag.id) }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

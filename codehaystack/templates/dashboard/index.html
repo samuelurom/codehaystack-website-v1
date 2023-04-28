@@ -1,8 +1,15 @@
-<h1>
-    Dashboard
-</h1>
+{% extends 'dashboard/layout.html' %}
+
+{% block content %}
+
 {% for message in get_flashed_messages() %}
     <p>
         {{ message }}
     </p>
 {% endfor %}
+
+<h1>
+    Dashboard
+</h1>
+
+{% endblock %}

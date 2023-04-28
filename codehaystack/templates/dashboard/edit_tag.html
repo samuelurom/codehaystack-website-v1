@@ -1,0 +1,28 @@
+{% extends 'dashboard/layout.html' %}
+
+{% block content %}
+<h1>Edit Tag</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.slug.label }}
+        {{ form.slug }}
+    </p>
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.submit (value="Update Tag") }}
+    </p>
+</form>
+{% endblock %}

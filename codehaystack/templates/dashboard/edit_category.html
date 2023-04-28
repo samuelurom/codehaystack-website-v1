@@ -1,4 +1,7 @@
-<h1>Create New Term</h1>
+{% extends 'dashboard/layout.html' %}
+
+{% block content %}
+<h1>Edit Category</h1>
 
 {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>
@@ -15,14 +18,11 @@
         {{ form.slug }}
     </p>
     <p>
-        {{ form.taxonomy.label }}
-        {{ form.taxonomy }}
-    </p>
-    <p>
         {{ form.description.label }}
         {{ form.description }}
     </p>
     <p>
-        {{ form.submit }}
+        {{ form.submit (value="Update Category") }}
     </p>
 </form>
+{% endblock %}

@@ -10,7 +10,7 @@ def index():
     return render_template("main/index.html")
 
 
-@main.route("/<slug>")
+@main.route("/blog/<slug>")
 def post(slug):
     post = Post.query.filter_by(slug=slug).first_or_404()
     return render_template("main/single_post.html", post=post)

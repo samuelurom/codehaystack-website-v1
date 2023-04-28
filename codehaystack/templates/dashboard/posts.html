@@ -1,0 +1,42 @@
+{% extends "dashboard/layout.html" %}
+
+{% block content %}
+
+<h1>Posts</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Categories</th>
+            <th>Date</th>
+            <th>Updated Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    {% for post in posts %}
+    <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.user }}</td>
+        <td>
+            {% for term in post.terms %}
+                {% if term.taxonomy == 'Category' %}
+                    {{ term.name }}
+                {% endif %}
+            {% endfor %}
+        </td>
+        <td>{{ post.created_at }}</td>
+        <td>{{ post.modified_at }}</td>
+        <td>{{ post.status }}</td>
+        <td><a href="{{ url_for('main.post', slug=post.slug) }}" target="_blank">View</a> | <a href="{{ url_for('post.edit_post', id=post.id) }}">Edit</a> | <a href="{{ url_for('post.delete_post', id=post.id) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

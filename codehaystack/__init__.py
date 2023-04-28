@@ -39,14 +39,16 @@ def create_app():
     from .routes.main import main
     from .routes.profile import profile
     from .routes.post import post
-    from .routes.term import term
+    from .routes.category import category
+    from .routes.tag import tag
     from .routes.dashboard import dashboard
     from .routes.file import file
 
     app.register_blueprint(main)
     app.register_blueprint(profile)
     app.register_blueprint(post)
-    app.register_blueprint(term)
+    app.register_blueprint(category)
+    app.register_blueprint(tag)
     app.register_blueprint(dashboard)
     app.register_blueprint(file)
 

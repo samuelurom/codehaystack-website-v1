@@ -1,0 +1,59 @@
+<h1>Edit Post</h1>
+
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.title.label }}
+        {{ form.title }}
+    </p>
+
+    <p>
+        {{ form.slug.label }}
+        {{ form.slug }}
+    </p>
+
+    <p>
+        {{ form.description.label }}
+        {{ form.description }}
+    </p>
+
+    <p>
+        {{ form.categories.label }}
+        {{ form.categories }}
+    </p>
+
+    <p>
+        {{ form.tags.label }}
+        {{ form.tags }}
+    </p>
+
+    <p>
+        {{ form.content.label }}
+        {{ form.content }}
+    </p>
+
+
+    {% if post.featured_image_path %}
+    <p>
+        <img src="{{ url_for('file.get_file', filename=post.featured_image_path) }}" alt="">
+    </p>
+    {% endif %}
+    <p>
+        Change {{ form.featured_image.label }}
+        {{ form.featured_image }}
+    </p>
+
+    <p>
+        {{ form.status.label }}
+        {{ form.status }}
+    </p>
+
+    <p>
+        {{ form.submit(value="Update Post") }}
+    </p>
+</form>

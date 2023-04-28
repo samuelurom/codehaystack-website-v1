@@ -5,6 +5,6 @@ dashboard = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 
 
 @dashboard.route("/")
-# @login_required
+@login_required
 def dashbaord():
-    return "<h1>Hello Dashboard</h1>"
+    return render_template("/dashboard/index.html")

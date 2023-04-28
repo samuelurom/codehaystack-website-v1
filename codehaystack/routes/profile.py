@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 from ..forms import SignUpForm, LogInForm
@@ -7,7 +7,7 @@ from ..models.post import Post
 from ..models.user import User
 from ..extensions import db
 
-profile = Blueprint("profile", __name__, url_prefix="/dashboard")
+profile = Blueprint("profile", __name__, url_prefix="/dashboard/profile")
 
 
 @profile.route("/signup", methods=["GET", "POST"])
@@ -66,7 +66,7 @@ def login():
 
     if form.validate_on_submit():
         # get user from database
-        user = User.query.filter_by(username=form.username.data).first_or_404()
+        user = User.query.filter_by(username=form.username.data).first()
 
         # check if username is correct
         # redirect user to the `next` URL if it exists
@@ -95,6 +95,7 @@ def login():
 
 
 @profile.route("/logout")
+@login_required
 def logout():
     logout_user()
 
