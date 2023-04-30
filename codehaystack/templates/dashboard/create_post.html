@@ -1,4 +1,10 @@
-<h1>Create Post</h1>
+{% extends 'dashboard/layout.html' %}
+
+{% block header %}
+    {% block title %}Create Post{% endblock %}
+{% endblock %}
+
+{% block content %}
 
 {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>
@@ -7,47 +13,56 @@
 <form action="" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
 
-    <p>
-        {{ form.title.label }}
-        {{ form.title }}
-    </p>
-
-    <p>
-        {{ form.slug.label }}
-        {{ form.slug }}
-    </p>
-
-    <p>
-        {{ form.description.label }}
-        {{ form.description }}
-    </p>
-
-    <p>
-        {{ form.categories.label }}
-        {{ form.categories }}
-    </p>
-
-    <p>
-        {{ form.tags.label }}
-        {{ form.tags }}
-    </p>
-
-    <p>
-        {{ form.content.label }}
-        {{ form.content }}
-    </p>
-
-    <p>
-        {{ form.featured_image.label }}
-        {{ form.featured_image }}
-    </p>
-
-    <p>
-        {{ form.status.label }}
-        {{ form.status }}
-    </p>
-
-    <p>
-        {{ form.submit }}
-    </p>
+    <div class="mt-10 grid grid-cols-1 gap-y-8">
+        <div>
+            {{ form.title.label(class="leading-6 font-semibold") }}
+            {{ form.title(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.slug.label(class="leading-6 font-semibold") }}
+            {{ form.slug(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.description.label(class="leading-6 font-semibold") }}
+            {{ form.description(rows="3", class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.categories.label(class="leading-6 font-semibold") }} 
+            <span class="text-xs text-gray-500"><strong>cmd+click</strong> or <strong>ctrl+click</strong> to select multiple</span>
+            {{ form.categories(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.tags.label(class="leading-6 font-semibold") }} 
+            <span class="text-xs text-gray-500"><strong>cmd+click</strong> or <strong>ctrl+click</strong> to select multiple</span>
+            {{ form.tags(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.content.label(class="leading-6 font-semibold") }}
+            {{ form.content }}
+        </div>
+    
+        <div>
+            {{ form.featured_image.label(class="leading-6 font-semibold") }}
+            {{ form.featured_image(class="block mt-2 rounded-md bg-white px-2.5 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100") }}
+        </div>
+    
+        <div class="">
+            {{ form.status.label(class="leading-6 font-semibold") }}
+            {{ form.status(class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+    
+        <div>
+            {{ form.submit(class="rounded-md bg-sky-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+        </div>
+    </div>
 </form>
+
+{{ ckeditor.load(pkg_type='standard-all') }}
+{{ ckeditor.config(name='content') }}
+
+{% endblock %}

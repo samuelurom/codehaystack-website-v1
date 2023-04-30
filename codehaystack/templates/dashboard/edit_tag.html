@@ -1,7 +1,10 @@
 {% extends 'dashboard/layout.html' %}
 
+{% block header %}
+    {% block title %}Edit Tag{% endblock %}
+{% endblock %}
+
 {% block content %}
-<h1>Edit Tag</h1>
 
 {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>
@@ -9,20 +12,25 @@
 
 <form action="" method="POST">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.name.label }}
-        {{ form.name }}
-    </p>
-    <p>
-        {{ form.slug.label }}
-        {{ form.slug }}
-    </p>
-    <p>
-        {{ form.description.label }}
-        {{ form.description }}
-    </p>
-    <p>
-        {{ form.submit (value="Update Tag") }}
-    </p>
+    <div class="mt-6 grid grid-cols-1 gap-y-8">
+        <div>
+            {{ form.name.label(class="leading-6 font-semibold") }}
+            {{ form.name(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.slug.label(class="leading-6 font-semibold") }}
+            {{ form.slug(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.description.label(class="leading-6 font-semibold") }}
+            {{ form.description(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.submit(value="Update Tag", class="rounded-md bg-sky-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+        </div>
+    </div>
 </form>
+
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='description') }}
 {% endblock %}

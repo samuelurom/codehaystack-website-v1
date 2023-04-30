@@ -1,5 +1,9 @@
 {% extends 'dashboard/layout.html' %}
 
+{% block title %}CodeHaystack{% endblock %}
+
+{% block header %}Dashboard{% endblock %}
+
 {% block content %}
 
 {% for message in get_flashed_messages() %}
@@ -8,8 +12,6 @@
     </p>
 {% endfor %}
 
-<h1>
-    Dashboard
-</h1>
+<p>Content...</p>
 
 {% endblock %}

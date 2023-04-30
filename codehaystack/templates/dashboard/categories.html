@@ -1,47 +1,74 @@
 {% extends 'dashboard/layout.html' %}
 
+{% block header %}
+    {% block title %}Categories{% endblock %}
+{% endblock %}
+
 {% block content %}
-<h1>Create New Category</h1>
 
 {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>
 {% endfor %}
 
+<h2 class="text-xl font-semibold mt-10">Add New Category</h2>
+
 <form action="" method="POST">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.name.label }}
-        {{ form.name }}
-    </p>
-    <p>
-        {{ form.slug.label }}
-        {{ form.slug }}
-    </p>
-    <p>
-        {{ form.description.label }}
-        {{ form.description }}
-    </p>
-    <p>
-        {{ form.submit(value="Add New Category") }}
-    </p>
+    <div class="mt-6 grid grid-cols-1 gap-y-8">
+        <div>
+            {{ form.name.label(class="leading-6 font-semibold") }}
+            {{ form.name(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.slug.label(class="leading-6 font-semibold") }}
+            {{ form.slug(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.description.label(class="leading-6 font-semibold") }}
+            {{ form.description(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+        </div>
+        <div>
+            {{ form.submit(value="Add New Category", class="rounded-md bg-sky-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+        </div>
+    </div>
 </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Slug</th>
-            <th>Description</th>
-            <th></th>
-        </tr>
-    </thead>
-    {% for category in categories %}
-        <tr>
-            <td>{{ category.name }}</td>
-            <td>{{ category.slug }}</td>
-            <td>{{ category.description }}</td>
-            <td><a href="">View</a> | <a href="{{ url_for('category.edit_category', id=category.id) }}">Edit</a> | <a href="{{ url_for('category.delete_category', id=category.id )}}">Delete</a></td>
-        </tr>
-    {% endfor %}
-</table>
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='description') }}
+
+<div class="my-10">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-white">
+            <tr>
+                <th class="p-4 text-xs text-left font-medium uppercase tracking-wider">Name</th>
+                <th class="p-4 text-xs text-left font-medium uppercase tracking-wider">Slug</th>
+                <th class="p-4 text-xs text-left font-medium uppercase tracking-wider">Description</th>
+                <th class="relative p-4"><span class="sr-only">View</span></th>
+                <th class="relative p-4"><span class="sr-only">Edit</span></th>
+                <th class="relative p-4"><span class="sr-only">Delete</span></th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for category in categories %}
+                <!-- Alternate backgound colors of tr based on loop.index() -->
+                <tr class="{{ 'bg-white' if loop.index is even else 'bg-gray-100' }}">
+                    <td class="p-4 text-sm font-medium text-gray-900">{{ category.name }}</td>
+                    <td class="p-4 text-sm font-medium text-gray-900">{{ category.slug }}</td>
+                    <td class="p-4 text-sm font-medium text-gray-900">{{ category.description|safe }}</td>
+                    <!-- View, edit, delete columns/links -->
+                    <td class="p-4 text-sm font-medium text-gray-600">
+                        <a href="" target="_blank" class="text-teal-500 hover:text-teal-900">View</a>
+                    </td>
+                    <td class="p-4 text-sm font-medium text-gray-600">
+                        <a href="{{ url_for('category.edit_category', id=category.id) }}" class="text-sky-500 hover:text-sky-900">Edit</a>
+                    </td>
+                    <td class="p-4 text-sm font-medium text-gray-600">
+                        <a href="{{ url_for('category.delete_category', id=category.id )}}" onclick="return confirm('Are you sure you want to delete this category?')" class="text-red-500 hover:text-red-900">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
