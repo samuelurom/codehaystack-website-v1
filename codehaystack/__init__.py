@@ -18,12 +18,13 @@ def create_app():
     except OSError:
         pass
 
-    # initialize and bind `db`, `migration` and `login_manager` to app
-    from .extensions import db, migrate, login_manager
+    # initialize and bind `db`, `migration`, `login_manager`, `ckeditor` to app
+    from .extensions import db, migrate, login_manager, ckeditor
 
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    ckeditor.init_app(app)
 
     # default login view
     login_manager.login_view = "profile.login"

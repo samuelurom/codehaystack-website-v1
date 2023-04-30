@@ -11,6 +11,7 @@ from wtforms import (
     HiddenField,
     SubmitField,
 )
+from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -52,7 +53,7 @@ class UserProfileForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     full_name = StringField("Full Name")
     email = EmailField("Email", validators=[DataRequired()])
-    bio = TextAreaField("Bio")
+    bio = CKEditorField("Bio")
 
     update = SubmitField("Update Profile")
 
@@ -77,7 +78,7 @@ class PostArticleForm(FlaskForm):
         "Categories", validators=[DataRequired()], validate_choice=False
     )
     tags = SelectMultipleField("Tags", validate_choice=False)
-    content = TextAreaField("Content", validators=[DataRequired()])
+    content = CKEditorField("Content", validators=[DataRequired()])
 
     featured_image = FileField("Featured Image")
 
@@ -92,7 +93,7 @@ class TermForm(FlaskForm):
     """Create or Edit Terms and Taxonomy"""
 
     name = StringField("Name", validators=[DataRequired()])
-    description = TextAreaField("Description")
+    description = CKEditorField("Description")
     slug = StringField("Slug")
 
     submit = SubmitField("Add New Term")
