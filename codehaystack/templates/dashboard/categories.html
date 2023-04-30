@@ -37,6 +37,7 @@
 {{ ckeditor.config(name='description') }}
 
 <div class="my-10">
+    {% if categories %}
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-white">
             <tr>
@@ -69,6 +70,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="text-gray-900">No categories to display...</p>
+    {% endif %}
 </div>
 
 {% endblock %}

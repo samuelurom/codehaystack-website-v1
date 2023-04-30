@@ -13,6 +13,7 @@
 <a href="{{ url_for('post.create_post') }}" class="text-2xl text-center block w-12 h-12 pt-2 bg-sky-500 text-gray-50 rounded-full hover:bg-teal-500"><i class="fa-solid fa-plus"></i></a>
 
 <div class="my-8">
+    {% if posts %}
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-white">
             <tr>
@@ -56,6 +57,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="text-gray-900">No posts to display...</p>
+    {% endif %}
 </div>
 
 {% endblock %}
