@@ -26,6 +26,24 @@ def create_app():
     login_manager.init_app(app)
     ckeditor.init_app(app)
 
+    # Insert admin and user Role if not available
+    from .models.user import Role
+
+    @app.before_first_request
+    def add_roles():
+        # confirm user roles in database before first app request
+        user_roles = Role.query.all()
+
+        if not user_roles:
+            admin_role = Role(name="admin")
+            editor_role = Role(name="editor")
+            user_role = Role(name="user")
+
+            db.session.add(admin_role)
+            db.session.add(editor_role)
+            db.session.add(user_role)
+            db.session.commit()
+
     # default login view
     login_manager.login_view = "profile.login"
 
