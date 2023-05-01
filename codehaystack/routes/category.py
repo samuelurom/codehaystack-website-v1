@@ -129,4 +129,6 @@ def delete_category(id):
     db.session.delete(category)
     db.session.commit()
 
+    flash("Category deleted successfully!", "success")
+
     return redirect(url_for("category.categories"))

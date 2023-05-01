@@ -50,7 +50,7 @@ def tags():
             db.session.commit()
 
             # flash success message
-            flash("Term created", "success")
+            flash("New term created", "success")
 
             return redirect(url_for("tag.tags"))
     else:
@@ -126,5 +126,7 @@ def delete_tag(id):
     # delete the record from the session and commit to database
     db.session.delete(tag)
     db.session.commit()
+
+    flash("Category deleted successfully!", "success")
 
     return redirect(url_for("tag.tags"))
