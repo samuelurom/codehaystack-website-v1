@@ -1,16 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.urls import url_parse
 
 from ..forms import SignUpForm, LogInForm
 from ..models.post import Post
-from ..models.user import User
+from ..models.user import User, Role
 from ..extensions import db
 
 profile = Blueprint("profile", __name__, url_prefix="/dashboard/profile")
 
 
 @profile.route("/signup", methods=["GET", "POST"])
+@login_required
 def signup():
     """View for user signup"""
 
@@ -41,6 +42,20 @@ def signup():
             # set user password hash
             new_user.set_password(signup_form.password.data)
 
+            # check if any user exists in database
+            # if not set first user as admin
+            all_users = User.query.all()
+
+            if not all_users:
+                # get admin `user` role from database
+                user_role = Role.query.filter_by(name="admin").first()
+            else:
+                # get user `user` role from database
+                user_role = Role.query.filter_by(name="user").first()
+
+            # set user role
+            new_user.role = user_role
+
             # commit
             db.session.add(new_user)
             db.session.commit()
@@ -52,7 +67,7 @@ def signup():
         # validation not passed
         for field, errors in signup_form.errors.items():
             for error in errors:
-                flash(f"{field.title().replace('_', ' ')}: {error}", "error")
+                flash(f"{field.title().replace('_', ' ')}: {error}", "danger")
 
     return render_template("/dashboard/signup.html", form=signup_form)
 
@@ -60,6 +75,10 @@ def signup():
 @profile.route("/login", methods=["GET", "POST"])
 def login():
     """View for user login"""
+
+    # first check if current user is logged in
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard.index"))
 
     # crate instance of login form
     form = LogInForm()
