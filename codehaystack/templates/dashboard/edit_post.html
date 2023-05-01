@@ -6,10 +6,6 @@
 
 {% block content %}
 
-{% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-{% endfor %}
-
 <form action="" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
 
@@ -61,7 +57,7 @@
         </div>
     
         <div>
-            {{ form.submit(value="Update Post", class="rounded-md bg-sky-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+            {{ form.submit(value="Update Post", class="rounded-md cursor-pointer bg-sky-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
         </div>
     </div>
 </form>

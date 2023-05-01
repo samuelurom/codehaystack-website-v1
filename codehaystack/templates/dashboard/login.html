@@ -1,29 +1,87 @@
-<h1>Log In</h1>
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/output.css') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+<body class="h-full">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 
-{% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-{% endfor %}
+        <div class="flex justify-center items-center gap-4 sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="h-14 w-14" src="{{ url_for('static', filename='images/favicon.png') }}" alt="Code Haystack">
+            <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Log in</h2>
+        </div>
+      
+        <div class="mt-10 max-w-sm mx-auto">
 
-<form action="" method="post">
-    {{ form.hidden_tag() }}
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == "success" %}
+                            <div class="bg-teal-500 rounded-lg" id="flash-message">
+                        {% elif category == "danger" %}
+                            <div class="bg-red-500 rounded-lg" id="flash-message">
+                        {% else %}
+                            <div class="bg-sky-500 rounded-lg" id="flash-message">
+                        {% endif %}
+                                <div class="mb-4 -mt-6 px-3 py-2 flex flex-wrap justify-between items-center gap-x-4 gap-y-2">
+                                    <p class="text-sm font-semibold leading-6 text-white">
+                                        {{ message }}
+                                    </p>
+                                    <button type="button" id="close-button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+                                        <span class="sr-only">Dismiss</span>
+                                        <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                    {% endfor %}
+                            </div>
+                {% endif %}
+            {% endwith %}
+            <!-- End flash messages -->
 
-    <p>
-        {{ form.username.label }}
-        {{ form.username }}
-    </p>
+            <form class="space-y-6" action="#" method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div>
+                    {{ form.username.label(class="block text-sm font-medium leading-6 text-gray-900") }}
 
-    <p>
-        {{ form.password.label }}
-        {{ form.password }}
-    </p>
+                    {{ form.username(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+                </div>
 
-    <p>
-        {{ form.remember }}
-        {{ form.remember.label }}
-    </p>
+                <div>
+                    <div class="flex items-center justify-between">
+                        {{ form.password.label(class="block text-sm font-medium leading-6 text-gray-900") }}
 
-    <p>
-        {{ form.next() }}
-        {{ form.login }}
-    </p>
-</form>
+                        <a href="#" class="text-sm font-semibold text-sky-500 hover:text-teal-500">Forgot password?</a>
+                    </div>
+
+                    {{ form.password(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+                </div>
+
+                <div class="flex items-center">
+                    {{ form.remember(class="h-5 w-5") }}
+                    {{ form.remember.label(class="ml-2 text-gray-700") }}
+                </div>
+
+                <div>
+                    {{ form.next() }}
+                    {{ form.login(class="flex cursor-pointer w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+                </div>
+            </form>
+      
+          <p class="mt-10 text-center text-sm text-gray-500">
+            Not a member?
+            <a href="#" class="font-semibold leading-6 text-sky-500 hover:text-teal-500">Request for invite code</a> to create an account.
+          </p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
