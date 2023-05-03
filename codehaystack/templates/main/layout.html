@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Login Button -->
-                <a href="{{ url_for('profile.login') }}" class="hidden md:block rounded-full px-4 py-2 font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200">Log in &rarr;</a>
+                <a href="{{ url_for('auth.login') }}" class="hidden md:block rounded-full px-4 py-2 font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200">Log in &rarr;</a>
                 
                 <!-- Mobile menu button -->
                 <div class="-mr-2 flex md:hidden">
@@ -65,7 +65,7 @@
                     <a href="#" class="block px-3 py-2 text-sm font-semibold rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-100">React</a>
                     <a href="#" class="block px-3 py-2 text-sm font-semibold rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-100">Git</a>
                     <!-- Login Button -->
-                    <a href="#" class="block text-sm px-3 py-2 font-semibold text-gray-700 hover:text-gray-900 border-t border-t-gray-200 hover:rounded-lg hover:bg-gray-100">Log in &rarr;</a>
+                    <a href="{{ url_for('auth.login') }}" class="block text-sm px-3 py-2 font-semibold text-gray-700 hover:text-gray-900 border-t border-t-gray-200 hover:rounded-lg hover:bg-gray-100">Log in &rarr;</a>
                 </div>
             </div>
         </nav>
