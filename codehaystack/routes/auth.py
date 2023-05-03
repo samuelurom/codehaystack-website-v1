@@ -7,10 +7,10 @@ from ..models.post import Post
 from ..models.user import User, Role
 from ..extensions import db
 
-profile = Blueprint("profile", __name__, url_prefix="/dashboard/profile")
+auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@profile.route("/signup", methods=["GET", "POST"])
+@auth.route("/signup", methods=["GET", "POST"])
 @login_required
 def signup():
     """View for user signup"""
@@ -27,7 +27,7 @@ def signup():
         # check for existing username and email
         # create new user if validation is passed
         if User.query.filter_by(email=email).first():
-            flash("Email already in use!", "dager")
+            flash("Email already in use!", "danger")
 
         # check if username exists
         elif User.query.filter_by(username=username).first():
@@ -62,17 +62,17 @@ def signup():
 
             flash("Your account has been created!", "success")
 
-            return redirect(url_for("profile.login"))
+            return redirect(url_for("auth.login"))
     else:
         # validation not passed
         for field, errors in signup_form.errors.items():
             for error in errors:
                 flash(f"{field.title().replace('_', ' ')}: {error}", "danger")
 
-    return render_template("/dashboard/signup.html", form=signup_form)
+    return render_template("auth/signup.html", form=signup_form)
 
 
-@profile.route("/login", methods=["GET", "POST"])
+@auth.route("/login", methods=["GET", "POST"])
 def login():
     """View for user login"""
 
@@ -110,13 +110,13 @@ def login():
             for error in errors:
                 flash(f"{field.title().replace('_', ' ')}: {error}", "danger")
 
-    return render_template("dashboard/login.html", form=form)
+    return render_template("auth/login.html", form=form)
 
 
-@profile.route("/logout")
+@auth.route("/logout")
 @login_required
 def logout():
     logout_user()
 
     flash("Logged out successfully!", "success")
-    return redirect(url_for("profile.login"))
+    return redirect(url_for("auth.login"))
