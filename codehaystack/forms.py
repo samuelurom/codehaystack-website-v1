@@ -12,7 +12,7 @@ from wtforms import (
     SubmitField,
 )
 from flask_ckeditor import CKEditorField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
 
 class SignUpForm(FlaskForm):
@@ -51,21 +51,54 @@ class UserProfileForm(FlaskForm):
     """User Profile Form class"""
 
     username = StringField("Username", validators=[DataRequired()])
+    role = SelectField("Role", validators=[DataRequired()], validate_choice=False)
     full_name = StringField("Full Name")
-    email = EmailField("Email", validators=[DataRequired()])
-    bio = CKEditorField("Bio")
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    website = StringField("Website")
+    twitter_username = StringField("Twitter Username (without @)")
+    linkedin_url = StringField("LinkedIn URL")
+    bio = TextAreaField("Bio")
+    profile_image = FileField("Profile Image")
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, message="Password should be more than 8 characters"),
+        ],
+    )
+    confirm_password = PasswordField(
+        "Confirm Password",
+        validators=[DataRequired(), EqualTo("password", "Passwords do not match")],
+    )
 
-    update = SubmitField("Update Profile")
+    submit = SubmitField("Save User")
 
 
-class ChangePasswordForm(FlaskForm):
-    """Change User Password"""
+class UserProfileUpdateForm(FlaskForm):
+    """User Profile Form class"""
 
-    old_password = PasswordField("Old Password", validators=[DataRequired()])
-    new_password = PasswordField("New Password", validators=[DataRequired()])
-    confirm_password = PasswordField("Confirm Password", validators=[DataRequired()])
+    username = StringField("Username")
+    role = SelectField("Role", validators=[DataRequired()], validate_choice=False)
+    full_name = StringField("Full Name")
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    website = StringField("Website")
+    twitter_username = StringField("Twitter Username (without @)")
+    linkedin_url = StringField("LinkedIn URL")
+    bio = TextAreaField("Bio")
+    profile_image = FileField("Profile Image")
+    password = PasswordField(
+        "Set New Password",
+        validators=[
+            Optional(),
+            Length(min=8, message="Password should be more than 8 characters"),
+        ],
+    )
+    confirm_password = PasswordField(
+        "Confirm New Password",
+        validators=[EqualTo("password", "Passwords do not match")],
+    )
 
-    submit = SubmitField("Submit")
+    submit = SubmitField("Update User")
 
 
 class PostArticleForm(FlaskForm):
