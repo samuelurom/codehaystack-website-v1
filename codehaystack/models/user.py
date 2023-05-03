@@ -22,6 +22,9 @@ class User(UserMixin, db.Model):
     full_name = db.Column(db.String(80))
     email = db.Column(db.String(250), unique=True, nullable=False)
     bio = db.Column(db.Text)
+    website = db.Column(db.String(250))
+    twitter_username = db.Column(db.String(80))
+    linkedin_url = db.Column(db.String(250))
     password_hash = db.Column(db.String(250), nullable=False)
     profile_image_path = db.Column(db.String(250))
 
