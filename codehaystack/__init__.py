@@ -45,7 +45,7 @@ def create_app():
             db.session.commit()
 
     # default login view
-    login_manager.login_view = "profile.login"
+    login_manager.login_view = "auth.login"
 
     # get user object with user's id
     from .models.user import User
@@ -56,19 +56,21 @@ def create_app():
 
     # import and register blueprints
     from .routes.main import main
-    from .routes.profile import profile
+    from .routes.auth import auth
     from .routes.post import post
     from .routes.category import category
     from .routes.tag import tag
     from .routes.dashboard import dashboard
+    from .routes.user import user
     from .routes.file import file
 
     app.register_blueprint(main)
-    app.register_blueprint(profile)
+    app.register_blueprint(auth)
     app.register_blueprint(post)
     app.register_blueprint(category)
     app.register_blueprint(tag)
     app.register_blueprint(dashboard)
     app.register_blueprint(file)
+    app.register_blueprint(user)
 
     return app
