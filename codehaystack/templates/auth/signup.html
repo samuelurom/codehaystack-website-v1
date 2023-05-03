@@ -4,7 +4,7 @@
         <img class="h-14 w-14" src="{{ url_for('static', filename='images/favicon.png') }}" alt="Code Haystack">
         <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {% block header %}
-                {% block title %}Log in{% endblock %}
+                {% block title %}Sign Up{% endblock %}
             {% endblock %}
         </h2>
     </div>
@@ -43,38 +43,42 @@
             {{ form.hidden_tag() }}
             
             <div>
+                {{ form.email.label(class="block text-sm font-medium leading-6 text-gray-900") }}
+
+                {{ form.email(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
+            </div>
+
+            <div>
                 {{ form.username.label(class="block text-sm font-medium leading-6 text-gray-900") }}
 
                 {{ form.username(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
             </div>
 
             <div>
-                <div class="flex items-center justify-between">
-                    {{ form.password.label(class="block text-sm font-medium leading-6 text-gray-900") }}
-
-                    <a href="#" class="text-sm font-semibold text-sky-500 hover:text-teal-500">Forgot password?</a>
-                </div>
+                {{ form.password.label(class="block text-sm font-medium leading-6 text-gray-900") }}
 
                 {{ form.password(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
             </div>
 
-            <div class="flex items-center">
-                {{ form.remember(class="h-5 w-5") }}
-                {{ form.remember.label(class="ml-2 text-gray-700") }}
+            <div>
+                {{ form.confirm_password.label(class="block text-sm font-medium leading-6 text-gray-900") }}
+
+                {{ form.confirm_password(class="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-500") }}
             </div>
 
             <div>
-                {{ form.next() }}
-                {{ form.login(class="flex cursor-pointer w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
+                {{ form.submit(class="flex cursor-pointer w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600") }}
             </div>
         </form>
     
-        <p class="mt-10 text-center text-sm text-gray-500">
-        Not a member?
-        <a href="#" class="font-semibold leading-6 text-sky-500 hover:text-teal-500">Request for invite code</a> to <a href="{{ url_for('profile.signup') }}"  class="font-semibold leading-6 text-sky-500 hover:text-teal-500">create an account</a>.
-        </p>
-        <p class="mt-4 text-center text-sm text-gray-500">
-        <a href="{{ url_for('main.index') }}" class="font-semibold leading-6 text-sky-500 hover:text-teal-500">&larr; Back to CodeHaystack</a>
-        </p>
+        <div>
+            <p class="mt-10 w-full text-center text-sm text-gray-500">
+                Have an account?
+                <a href="{{ url_for('auth.login') }}" class="font-semibold leading-6 text-sky-500 hover:text-teal-500">Log In</a>.
+            </p>
+            <p class="mt-4 text-center text-sm text-gray-500">
+                <a href="{{ url_for('main.index') }}" class="font-semibold leading-6 text-sky-500 hover:text-teal-500">&larr; Back to CodeHaystack</a>
+            </p>
+        </div>
     </div>
 {% endblock %}
