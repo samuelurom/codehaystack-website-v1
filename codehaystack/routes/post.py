@@ -47,7 +47,6 @@ def create_post():
         title = post_form.title.data
         slug = slugify(post_form.slug.data)
         featured_image = post_form.featured_image.data
-        featured_filename = secure_filename(featured_image.filename) or None
 
         # check or set slug if none is submitted
         if not slug:
@@ -58,22 +57,26 @@ def create_post():
             flash("Slug already exists", "danger")
 
         # check if uploaded `featured_image` is valid
-        elif not allowed_image(featured_filename):
+        elif featured_image and not allowed_image(featured_image.filename):
             flash("Featured image can only be jpg, png, gif, or webp formats!")
 
-        # process the data
-        else:
-            # retrieve the selected categories and terms
-            category_ids = post_form.categories.data
-            tag_ids = post_form.tags.data
+        # manual validations passed, process the data
 
-            # retrieve the corresponding `Term` objects from the database
-            categories = Term.query.filter(Term.id.in_(category_ids)).all()
-            tags = Term.query.filter(Term.id.in_(tag_ids)).all()
+        # retrieve the selected categories and terms
+        category_ids = post_form.categories.data
+        tag_ids = post_form.tags.data
 
-            # if `featured_image` is uploaded, make filename unique
-            if featured_filename:
-                unique_featured_filename = unique_filename(featured_filename)
+        # retrieve the corresponding `Term` objects from the database
+        categories = Term.query.filter(Term.id.in_(category_ids)).all()
+        tags = Term.query.filter(Term.id.in_(tag_ids)).all()
+
+        # if `featured_image` is uploaded, make filename unique
+        if featured_image:
+            # set secure filename
+            featured_filename = secure_filename(featured_image.filename)
+
+            # set unique filename
+            unique_featured_filename = unique_filename(featured_filename)
 
             # set featured_image filepath
             filepath = os.path.join(
@@ -82,28 +85,30 @@ def create_post():
 
             # upload and save the image with defined `filepath`
             featured_image.save(filepath)
+        else:
+            unique_featured_filename = None
 
-            # create a new `Post` instance
-            # with the selected categories and tags added to its `terms` list
-            new_post = Post(
-                title=title,
-                slug=slug,
-                description=post_form.description.data,
-                content=post_form.content.data,
-                featured_image_path=unique_featured_filename,
-                status=post_form.status.data,
-                post_type="post",
-                user_id=current_user.id,
-                terms=categories + tags,
-            )
+        # create a new `Post` instance
+        # with the selected categories and tags added to its `terms` list
+        new_post = Post(
+            title=title,
+            slug=slug,
+            description=post_form.description.data,
+            content=post_form.content.data,
+            featured_image_path=unique_featured_filename,
+            status=post_form.status.data,
+            post_type="post",
+            user_id=current_user.id,
+            terms=categories + tags,
+        )
 
-            # add the Post instance to database
-            db.session.add(new_post)
-            db.session.commit()
+        # add the Post instance to database
+        db.session.add(new_post)
+        db.session.commit()
 
-            flash("Post saved!", "success")
+        flash("Post saved!", "success")
 
-            return redirect(url_for("post.posts"))
+        return redirect(url_for("post.posts"))
     else:
         # validation not passed
         for field, errors in post_form.errors.items():

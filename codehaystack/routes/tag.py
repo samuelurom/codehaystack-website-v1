@@ -19,7 +19,7 @@ def tags():
     term_form = TermForm()
 
     # get all tags in database
-    all_tags = Term.query.filter_by(taxonomy="Tag").order_by(Term.name).all()
+    all_tags = Term.get_terms_by_taxonomy("Tag")
 
     # if form is submitted
     if term_form.validate_on_submit():
@@ -127,6 +127,6 @@ def delete_tag(id):
     db.session.delete(tag)
     db.session.commit()
 
-    flash("Category deleted successfully!", "success")
+    flash("Tag deleted successfully!", "success")
 
     return redirect(url_for("tag.tags"))

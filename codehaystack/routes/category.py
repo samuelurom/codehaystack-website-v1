@@ -19,7 +19,7 @@ def categories():
     term_form = TermForm()
 
     # get all categories in database
-    all_categories = Term.query.filter_by(taxonomy="Category").order_by(Term.name).all()
+    all_categories = Term.get_terms_by_taxonomy("Category")
 
     # if form is submitted
     if term_form.validate_on_submit():
